@@ -1,4 +1,10 @@
 # JoinACM
+[![](https://poggit.pmmp.io/shield.state/JoinACM)](https://poggit.pmmp.io/p/JoinACM)
+<a href="https://poggit.pmmp.io/p/JoinACM"><img src="https://poggit.pmmp.io/shield.state/JoinACM"></a>
+
+[![](https://poggit.pmmp.io/shield.api/JoinACM)](https://poggit.pmmp.io/p/JoinACM)
+<a href="https://poggit.pmmp.io/p/JoinACM"><img src="https://poggit.pmmp.io/shield.api/JoinACM"></a>
+
 A simple JoinUI customizable through the 'config.yml' file, you can edit the form and chat messages, you can also edit the sounds.
 
 ![Captura de pantalla 2021-12-07 133425](https://user-images.githubusercontent.com/83558341/145087376-84190bc4-3d3b-4624-b5df-2e7152ca24c7.png)
