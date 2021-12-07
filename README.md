@@ -1,11 +1,12 @@
 # JoinACM
 A simple JoinUI customizable through the 'config.yml' file, you can edit the form and chat messages, you can also edit the sounds.
 
-#      _         _            _      ___   __  __ 
-#  _  | |  ___  (_)  _ _     /_\    / __| |  \/  |
-#  | || | / _ \ | | | ' \   / _ \  | (__  | |\/| |
-#   \__/  \___/ |_| |_||_| /_/ \_\  \___| |_|  |_|
-#           by fernanACM
+### Config
+      _         _            _      ___   __  __ 
+  _  | |  ___  (_)  _ _     /_\    / __| |  \/  |
+  | || | / _ \ | | | ' \   / _ \  | (__  | |\/| |
+   \__/  \___/ |_| |_||_| /_/ \_\  \___| |_|  |_|
+           by fernanACM
 #Here is the page for you to choose the sound you like: https://www.digminecraft.com/lists/sound_list_pe.php
 #Remember that the type of music must be of the " ", 
 #I show you an example.
@@ -35,6 +36,7 @@ JoinUI-Content: "§eWelcome to the server friend :D\n§e I hope you like it very
 #JoinACm Button
 JoinUI-Button: "Click to continue"
 #============================================
+***
 
 ### Contact
 | Redes | Tag | Link |
@@ -44,6 +46,7 @@ JoinUI-Button: "Click to continue"
 | GitHub | fernanACM | [GitHub](https://github.com/fernanACM)
 | Poggit | fernanACM | [Poggit](https://poggit.pmmp.io/ci/fernanACM)
 ****
+
 ### Credits
 * **[Vecnavium](https://github.com/Vecnavium)**
 * **[FormsUI](https://github.com/Vecnavium/FormsUI/tree/master/)** 
