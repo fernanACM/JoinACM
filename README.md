@@ -1,8 +1,8 @@
 # JoinACM
-![Captura de pantalla 2021-12-07 133104](https://user-images.githubusercontent.com/83558341/145086999-e02804f5-f40c-4a7f-9f0c-52724989bb78.png)
-**TitleJoin** All of this can be customized through the data plugin
 ![Captura de pantalla 2021-12-07 133425](https://user-images.githubusercontent.com/83558341/145087376-84190bc4-3d3b-4624-b5df-2e7152ca24c7.png)
-**FormJoin** All of this can be customized through the data plugin
+<a href="https://discord.gg/YyE9XFckqb"><img src="https://img.shields.io/discord/837701868649709568?label=discord&color=7289DA&logo=discord" alt="Discord" /></a>
+
+**FormJoin All of this can be customized through the data plugin**
 
 A simple JoinUI customizable through the 'config.yml' file, you can edit the form and chat messages, you can also edit the sounds.
 
