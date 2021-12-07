@@ -2,21 +2,25 @@
 
 declare(strict_types=1);
 
-namespace MenuScore;
+namespace fernanACM;
 
-use pocketmine\{Server, Player, level\Position};
-use pocketmine\network\mcpe\protocol\{AddActorPacket, PlaySoundPacket, LevelSoundEventPacket, StopSoundPacket};
+use pocketmine\player\Player;
+use pocketmine\Server;
+
+use pocketmine\world\Position;
+use ReflectionClass;
+use pocketmine\network\mcpe\protocol\PlaySoundPacket;
 
 class PluginUtils {
-    
-    	public static function PlaySound(Player $player, string $sound, $volume = 1, $pitch = 1) {
-		$pk = new PlaySoundPacket();
-		$pk->x = $player->getX();
-		$pk->y = $player->getY();
-		$pk->z = $player->getZ();
-		$pk->soundName = $sound;
-		$pk->volume = $volume;
-		$pk->pitch = $pitch;
-		$player->dataPacket($pk);
+
+	public static function PlaySound(Player $player, string $sound, $volume = 1, $pitch = 1) {
+		$packet = new PlaySoundPacket();
+		$packet->x = $player->getPosition()->getX();
+		$packet->y = $player->getPosition()->getY();
+		$packet->z = $player->getPosition()->getZ();
+		$packet->soundName = $sound;
+		$packet->volume = 1;
+		$packet->pitch = 1;
+		$player->getNetworkSession()->sendDataPacket($packet);
 	}
 }
