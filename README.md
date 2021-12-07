@@ -2,6 +2,7 @@
 A simple JoinUI customizable through the 'config.yml' file, you can edit the form and chat messages, you can also edit the sounds.
 
 ### Config
+    ´´´yml
         _         _            _      ___   __  __ 
      _ | |  ___  (_)  _ _     /_\    / __| |  \/  |
     | || | / _ \ | | | ' \   / _ \  | (__  | |\/| |
