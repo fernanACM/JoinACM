@@ -1,6 +1,6 @@
 name: JoinACM
 main: fernanACM\Join
-version: 0.3
+version: 0.5
 api: 4.0.0
 author: fernanACM
 website: https://github.com/fernanACM
