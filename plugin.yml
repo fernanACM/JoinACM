@@ -1,9 +1,6 @@
 name: JoinACM
+main: ACM\Join
 version: 0.1
-main: fernanACM\Join
 api: 4.0.0
-mcpe-protocol:
-- 475
 author: fernanACM
-descripcion: Simple custom JoinUI for PocketMine-MP 4.0
 website: https://github.com/fernanACM
