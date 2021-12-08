@@ -1,5 +1,5 @@
 name: JoinACM
-main: fernanACM\Join
+main: fernanACM\JoinACM
 version: 0.5
 api: 4.0.0
 author: fernanACM
