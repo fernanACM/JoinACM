@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 
-namespace fernanACM\FormsUI;
+namespace ACM\FormsUI;
 
 use pocketmine\plugin\PluginBase;
 
