@@ -2,10 +2,11 @@
 
 namespace fernanACM\JoinACM;
 
-use fernanACM\JoinACM\PluginUtils;
-
 use pocketmine\Server;
-use pocketmine\Player\player;
+use pocketmine\player\Player;
+
+use pocketmine\utils\Utils;
+use pocketmine\utils\Config;
 
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
@@ -14,57 +15,75 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\event\Listener;
 
 use fernanACM\JoinACM\FormsUI\SimpleForm;
-use fernanACM\JOinACM\FormsUI\Form;
-use fernanACM\JoinACM\FormsUI\FormsUI;
+use fernanACM\JoinACM\PluginUtils;
+use fernanACM\JoinACM\commands\JoinCommand;
 
-use pocketmine\utils\Utils;
+use function str_replace;
 
 class Join extends PluginBase implements Listener {
+    
+    private $join;
   
     public function onEnable(): void{
         @mkdir($this->getDataFolder());
         $this->saveDefaultConfig();
+        $this->join = new Config($this->getDataFolder() . "config.yml", Config::YAML);
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
+        $this->getServer()->getCommandMap()->register("joinacm", new JoinCommand($this));
     }
   
     public function onJoin(PlayerJoinEvent $event): void{
         $player = $event->getPlayer();
-        $name = $player->getName();
         $event->setJoinMessage("");
-        $player->teleport($this->getServer()->getWorldManager()->getDefaultWorld()->getSafeSpawn());
+        if ($this->join->get("Spawn-Teleport", true) === true) {
+             $player->teleport($this->getServer()->getWorldManager()->getDefaultWorld()->getSafeSpawn());
+        }
         $this->getJoinUI($player);
-        PluginUtils::PlaySound($player, $this->getConfig()->get("PlaySoundJoin"), 1, 1.5);
-        $this->getServer()->broadcastMessage("§8[§r§a+§8]§r §a$name");
+        if ($this->join->get("JoinSound", true) === true) {
+            PluginUtils::PlaySound($player, $this->join->get("PlaySoundJoin"), 1, 1);
+        }
+        if ($this->join->get("PlayerJoin", true) === true) {
+        $message1 = $this->join->get("PlayerJoinMessage");
+        $this->getServer()->broadcastMessage(str_replace("{PLAYER}", $player->getName(), $message1));
+        }
     }
     
     public function onQuit(PlayerQuitEvent $event): void{
         $player = $event->getPlayer();
-        $name = $player->getName();
         $event->setQuitMessage("");
-        PluginUtils::PlaySound($player, $this->getConfig()->get("PlaySoundQuit"), 1, 1.5);
-        $this->getServer()->broadcastMessage("§8[§r§c-§8]§r §c$name");
+        if ($this->join->get("QuitSound", true) === true) {
+            PluginUtils::PlaySound($player, $this->join->get("PlaySoundQuit"), 1, 1);
+        }
+        if ($this->join->get("PlayerQuit", true) === true) {
+        $message2 = $this->join->get("PlayerQuitMessage");
+        $this->getServer()->broadcastMessage(str_replace("{PLAYER}", $player->getName(), $message2));
+        }
     }
     
-    public function getJoinUI($sender){
-        $form = new SimpleForm(function (Player $sender, $data){
-           $result = $data;
-              if($result === null){
-                  return true;
-            }
-              switch($result){
+    public function getJoinUI(Player $player){
+        $form = new SimpleForm(function(Player $player, $data){
+            if($data !== null){
+              switch($data){
                   case 0:
-                      $sender->sendMessage($this->getConfig()->get("Join-Message"));
-                      $sender->sendTitle($this->getConfig()->get("Join-Title")); 
-                      $sender->sendSubTitle($this->getConfig()->get("Join-SubTitle"));
-                      PluginUtils::PlaySound($sender, $this->getConfig()->get("PlaySoundButton"), 1, 1.5);
+                      if ($this->join->get("JoinACM-Message", true) === true) {
+                          $player->sendMessage($this->join->get("Join-Message"));
+                      }
+                      if ($this->join->get("Join-Titles", true) === true) {
+                          $player->sendTitle($this->join->get("Join-Title"));
+                      } 
+                      if ($this->join->get("Join-Titles", true) === true) {
+                          $player->sendSubTitle($this->join->get("Join-SubTitle"));
+                      }
+                      if ($this->join->get("ButtonSound", true) === true) {
+                          PluginUtils::PlaySound($player, $this->join->get("PlaySoundButton"), 1, 1);
+                      }
                   break;
+                  }
               }
         });
-        $form->setTitle($this->getConfig()->get("JoinUI-Title"));
-        $form->setContent($this->getConfig()->get("JoinUI-Content"));
-        $form->addButton($this->getConfig()->get("JoinUI-Button"),0,"textures/ui/controller_glyph_color");
-        $form->sendToPlayer($sender);
-        return $form;
+        $form->setTitle($this->join->get("JoinUI-Title"));
+        $form->setContent($this->join->get("JoinUI-Content"));
+        $form->addButton($this->join->get("JoinUI-Button"),0,"textures/ui/controller_glyph_color");
+        $player->sendForm($form);
     }
 }
-
