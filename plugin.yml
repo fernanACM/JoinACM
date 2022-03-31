@@ -1,6 +1,12 @@
 name: JoinACM
 main: fernanACM\JoinACM\Join
-version: 0.6
+version: 1.0
 api: 4.0.0
 author: fernanACM
+description: Simple custom JoinUI for PocketMine-MP 4.0 by fernanACM
 website: https://github.com/fernanACM
+
+permissions:
+  joinacm.command:
+    description: /joinacm
+    default: op
