@@ -1,13 +1,47 @@
-#      _         _            _      ___   __  __ 
-#  _  | |  ___  (_)  _ _     /_\    / __| |  \/  |
-#  | || | / _ \ | | | ' \   / _ \  | (__  | |\/| |
+#        _         _            _      ___   __  __ 
+#    _  | |  ___  (_)  _ _     /_\    / __| |  \/  |
+#   | || | / _ \ | | | ' \   / _ \  | (__  | |\/| |
 #   \__/  \___/ |_| |_||_| /_/ \_\  \___| |_|  |_|
 #           by fernanACM
 #Here is the page for you to choose the sound you like: https://www.digminecraft.com/lists/sound_list_pe.php
 #Remember that the type of music must be of the " ", 
 #I show you an example.
 #PlaySoundJoin: "random.pop"
-#===========================================
+#====================================================================
+           #JoinACM Settings - Message Join and Quit
+           
+#Respawn at the world spawn point. 
+#Use "true" or "false" To activate/deactivate this option
+Spawn-Teleport: true
+
+#Custom message when joining: 
+#Use "{PLAYER}" to display player name
+PlayerJoinMessage: "§8[§a+§8]§a {PLAYER}"
+#Disable custom message on join: 
+#Use "true" or "false" To activate/deactivate this option
+PlayerJoin: true
+#Mute sound on join
+JoinSound: true
+
+#Custom message on exit: 
+#Use "{PLAYER}" to display player name
+PlayerQuitMessage: "§8[§c-§8]§c {PLAYER}"
+#Disable custom message on exit: 
+#Use "true" or "false" To activate/deactivate this option
+PlayerQuit: true
+#Mute sound on exit
+QuitSound: true
+
+#Message when clicking the JoinACM button: 
+#Use "true" or "false" To activate/deactivate this option
+JoinACM-Message: true
+#Titles when clicking the JoinACM button:
+#Use "true" or "false" To activate/deactivate this option
+Join-Titles: true
+#Mute sound when clicking JoinACM button:
+#Use "true" or "false" To activate/deactivate this option
+ButtonSound: true
+#==========================================================
            #SOUNDS
 #Sound when it enters the server
 PlaySoundJoin: "mob.irongolem.hit"
@@ -18,17 +52,17 @@ PlaySoundButton: "random.fizz"
 #============================================
           #TITLES - MESSAGES
 #Message chat: Use '\n' to go down in the text
-Join-Message: "§aWolcome bro :)"
+Join-Message: "§aWelcome bro :), §ethanks for using JoinACM!"
 #Welcome title
-Join-Title: "§l§5Wolcome"
+Join-Title: "§l§6Welcome"
 #welcome subtitle
-Join-SubTitle: "§rThanks for using JoinACM"
+Join-SubTitle: "§r§fThanks for using JoinACM"
 #============================================
           #FORM
 #JoinACM Title
 JoinUI-Title: "§l§5JoinACM"
 #JoinACM Content: Use '\n' to go down in the text
-JoinUI-Content: "§eWelcome to the server friend :D\n§e I hope you like it very much."
+JoinUI-Content: "§eWelcome to the server friend :D\n§e I hope you like it very much.\n\n\n§bCreated by: §ffernanACM"
 #JoinACm Button
 JoinUI-Button: "Click to continue"
 #============================================
