@@ -14,7 +14,7 @@ use alvin0319\GroupsAPI\GroupsAPI;
 
 use fernanACM\JoinACM\ranks\RankSupport;
 
-class GroupsAPISupport implements RankSupport{
+class GroupsAPISupport extends RankSupport{
 
     /**
      * @return boolean

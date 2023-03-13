@@ -133,20 +133,31 @@ class Loader extends PluginBase{
      * @return void
      */
     public function loadRanks(): void{
-        $supportRankPlugins = [
-            new RankSystemSupport(),
-            new GroupsAPISupport(),
-            new GroupSystemSupport(),
-            new PurePermsSupport()
-        ];
-        foreach($supportRankPlugins as $supportRankPlugin) {
-            if($this->config->get('JoinRanks.Support.enabled') === true && $supportRankPlugin->isAvailable()){
-                $this->getLogger()->notice(get_class($supportRankPlugin) . ' support has been loaded.');
-                self::$supportRank = $supportRankPlugin;
-                return;
+        if($this->config->get("JoinRanks.Support.enabled") === true){
+            foreach(Server::getInstance()->getPluginManager()->getPlugins() as $plugin){
+                if($plugin instanceof \IvanCraft623\RankSystem\RankSystem){
+                    $this->getLogger()->notice("RankSystem support has been loaded.");
+                    self::$supportRank = new RankSystemSupport($plugin);
+                    return;
+                }
+                if($plugin instanceof \alvin0319\GroupsAPI\GroupsAPI){
+                    $this->getLogger()->notice("GroupsAPi support has been loaded.");
+                    self::$supportRank = new GroupsAPISupport($plugin);
+                    return;
+                }
+                if($plugin instanceof \r3pt1s\GroupSystem\GroupSystem){
+                    $this->getLogger()->notice("GroupSystem support has been loaded.");
+                    self::$supportRank = new GroupSystemSupport($plugin);
+                    return;
+                }
+                if($plugin instanceof \_64FF00\PurePerms\PurePerms){
+                    $this->getLogger()->notice("PurePerms support has been loaded.");
+                    self::$supportRank = new PurePermsSupport($plugin);
+                    return;
+                }
             }
         }
-        $this->getLogger()->critical('Rank support has been canceled because no supported plugin has been found');
+        $this->getLogger()->critical("Rank support has been canceled because it has not been found");
     }
 
     /**

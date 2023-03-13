@@ -14,7 +14,7 @@ use IvanCraft623\RankSystem\RankSystem;
 
 use fernanACM\JoinACM\ranks\RankSupport;
 
-class RankSystemSupport implements RankSupport{
+class RankSystemSupport extends RankSupport{
 
     /**
      * @return boolean

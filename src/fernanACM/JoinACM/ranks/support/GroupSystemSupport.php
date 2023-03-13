@@ -14,7 +14,7 @@ use r3pt1s\GroupSystem\GroupSystem;
 
 use fernanACM\JoinACM\ranks\RankSupport;
 
-class GroupSystemSupport implements RankSupport{
+class GroupSystemSupport extends RankSupport{
 
     /**
      * @return boolean

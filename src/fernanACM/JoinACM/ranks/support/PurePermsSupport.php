@@ -14,7 +14,7 @@ use _64FF00\PurePerms\PurePerms;
 
 use fernanACM\JoinACM\ranks\RankSupport;
 
-class PurePermsSupport implements RankSupport{
+class PurePermsSupport extends RankSupport{
 
     /**
      * @return boolean
