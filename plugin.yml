@@ -10,3 +10,6 @@ permissions:
   joinacm.command:
     description: /joinacm
     default: op
+  joinacm.command.setspawn:
+    description: /joinacm setspawn
+    default: op

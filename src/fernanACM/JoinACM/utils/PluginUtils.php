@@ -17,21 +17,36 @@ use pocketmine\player\Player;
 use pocketmine\utils\TextFormat;
 
 use pocketmine\network\mcpe\protocol\PlaySoundPacket;
+use pocketmine\network\mcpe\protocol\OnScreenTextureAnimationPacket;
 
 class PluginUtils {
 
-	public static function PlaySound(Player $player, string $sound, $volume = 1, $pitch = 1) {
+    /**
+     * @param Player $player
+     * @param string $sound
+     * @param int $volume
+     * @param float $pitch
+     * @return void
+     */
+	public static function PlaySound(Player $player, string $sound, int $volume, float $pitch){
 		$packet = new PlaySoundPacket();
 		$packet->x = $player->getPosition()->getX();
 		$packet->y = $player->getPosition()->getY();
 		$packet->z = $player->getPosition()->getZ();
 		$packet->soundName = $sound;
-		$packet->volume = 1;
-		$packet->pitch = 1;
+		$packet->volume = $volume;
+		$packet->pitch = $pitch;
 		$player->getNetworkSession()->sendDataPacket($packet);
 	}
     
-    public static function BroadSound(Player $player, string $soundName, int $volume = 500, float $pitch = 1){
+    /**
+     * @param Player $player
+     * @param string $soundName
+     * @param int $volume
+     * @param float $pitch
+     * @return void
+     */
+    public static function BroadSound(Player $player, string $soundName, int $volume, float $pitch){
         $packet = new PlaySoundPacket();
         $packet->soundName = $soundName;
         $position = $player->getPosition();
@@ -44,11 +59,22 @@ class PluginUtils {
         $world->getServer()->broadcastPackets($world->getPlayers(), [$packet]);
     }
 
+    /**
+     * @param Player $player
+     * @param string $message
+     * @return string
+     */
 	public static function codeUtil(Player $player, string $message): string{
        $replacements = [
             "{LINE}" => "\n",
             "{NAME}" => $player->getName(),
             "&" => "§",
+            "{HEALTH}" => $player->getHealth(),
+            "{MAX_HEALTH}" => $player->getMaxHealth(),
+            "{FOOD}" => $player->getHungerManager()->getFood(),
+            "{MAX_FOOD}" => $player->getHungerManager()->getMaxFood(),
+            "{PING}" => $player->getNetworkSession()->getPing(),
+            "{WORLD_NAME}" => $player->getWorld()->getFolderName(),
             # Colors
             "{BLACK}" => TextFormat::BLACK,
             "{DARK_BLUE}" => TextFormat::DARK_BLUE,
@@ -71,6 +97,17 @@ class PluginUtils {
             "{BOLD}" => TextFormat::BOLD,
             "{RESET}" => TextFormat::RESET
         ];
-        return str_replace(array_keys($replacements), $replacements, $message);
+        return strtr($message, $replacements);
+    }
+
+    /**
+     * @param Player $player
+     * @param int $effectId
+     * @return void
+     */
+    public static function AminationTexture(Player $player, int $effectId){
+        $packet = new OnScreenTextureAnimationPacket();
+        $packet->effectId = $effectId;
+        $player->getNetworkSession()->sendDataPacket($packet);
     }
 }

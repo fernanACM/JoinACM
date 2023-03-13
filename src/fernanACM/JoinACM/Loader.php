@@ -25,6 +25,14 @@ use CortexPE\Commando\PacketHooker;
 
 use DaPigGuy\libPiggyUpdateChecker\libPiggyUpdateChecker;
 
+use fernanACM\JoinACM\commands\JoinCommand;
+
+use fernanACM\JoinACM\ranks\support\GroupsAPISupport;
+use fernanACM\JoinACM\ranks\support\GroupSystemSupport;
+use fernanACM\JoinACM\ranks\support\PurePermsSupport;
+use fernanACM\JoinACM\ranks\support\RankSystemSupport;
+
+use fernanACM\JoinACM\ranks\RankSupport;
 use fernanACM\JoinACM\utils\PluginUtils;
 
 class Loader extends PluginBase{
@@ -32,30 +40,25 @@ class Loader extends PluginBase{
     /** @var Config $config */
     public Config $config;
 
-    /** @var Config $messages */
-    public Config $messages;
+    /** @var Config $spawn */
+    public Config $spawn;
 
     /** @var Loader $instance */
     public static Loader $instance;
 
+    /** @var $supportRank */
+    public static $supportRank;
+
     # CheckConfig
-    public const CONFIG_VERSION = "1.0.0";
-    public const LANGUAGE_VERSION = "1.0.0";
+    public const CONFIG_VERSION = "2.0.0";
 
-     # MultiLanguages
-    public const LANGUAGES = [
-        "eng", // English
-        "spa", // Spanish
-        "ger", // German
-        "frc", // French
-        "portg", // Portuguese
-        "indo", // Indonesian
-        "vie" // Vietnamese
-    ];
-
+    /**
+     * @return void
+     */
     public function onLoad(): void{
         self::$instance = $this;
     }
+
     /**
      * @return void
      */
@@ -64,19 +67,17 @@ class Loader extends PluginBase{
         $this->loadCheck();
         $this->loadVirions();
         $this->loadCommands();
+        $this->loadRanks();
         $this->loadEvents();
     }
 
-    public function loadFiles(){
-         # Config files
-         @mkdir($this->getDataFolder() . "languages");
+    /**
+     * @return void
+     */
+    public function loadFiles(): void{
          $this->saveResource("config.yml");
          $this->config = new Config($this->getDataFolder() . "config.yml");
-         # Languages
-         foreach(self::LANGUAGES as $language){
-             $this->saveResource("languages/" . $language . ".yml");
-         }
-         $this->messages = new Config($this->getDataFolder() . "languages/" . $this->config->get("language") . ".yml");
+         $this->spawn = new Config($this->getDataFolder() . "spawn.yml");
     }
 
     public function loadCheck(){
@@ -89,20 +90,13 @@ class Loader extends PluginBase{
             $this->getLogger()->critical("Your configuration file is outdated.");
             $this->getLogger()->notice("Your old configuration has been saved as config_old.yml and a new configuration file has been generated. Please update accordingly.");
         }
-        # LANGUAGES
-        $data = new Config($this->getDataFolder() . "languages/" . $this->config->get("language") . ".yml");
-        if((!$data->exists("language-version")) || ($data->get("language-version") != self::LANGUAGE_VERSION)){
-            rename($this->getDataFolder() . "languages/" . $this->config->get("language") . ".yml", $this->getDataFolder() . "languages/" . $this->config->get("language") . "_old.yml");
-            foreach(self::LANGUAGES as $language){
-                $this->saveResource("languages/" . $language . ".yml");
-            }
-            $this->getLogger()->critical("Your ".$this->config->get("language").".yml file is outdated.");
-            $this->getLogger()->notice("Your old ".$this->config->get("language").".yml has been saved as ".$this->config->get("language")."_old.yml and a new ".$this->config->get("language").".yml file has been generated. Please update accordingly.");
-        }
     }
 
-    public function loadVirions(){
-        foreach ([
+    /**
+     * @return void
+     */
+    public function loadVirions(): void{
+        foreach([
             "FormsUI" => FormsUI::class,
             "SimplePacketHandler" => SimplePacketHandler::class,
             "Commando" => BaseCommand::class,
@@ -110,7 +104,7 @@ class Loader extends PluginBase{
             ] as $virion => $class
         ){
             if(!class_exists($class)){
-                $this->getLogger()->error($virion . " virion not found. Please download PvPShop from Poggit-CI or use DEVirion (not recommended).");
+                $this->getLogger()->error($virion . " virion not found. Please download JoinACM from Poggit-CI or use DEVirion (not recommended).");
                 $this->getServer()->getPluginManager()->disablePlugin($this);
                 return;
             }
@@ -121,12 +115,38 @@ class Loader extends PluginBase{
         }
     }
 
-    public function loadEvents(){
+    /**
+     * @return void
+     */
+    public function loadEvents(): void{
         Server::getInstance()->getPluginManager()->registerEvents(new Event($this), $this);
     }
 
-    public function loadCommands(){
-        Server::getInstance()->getCommandMap()->register("pvpshop", new ShopCommand($this, "pvpshop", "Item shop for PvP use by fernanACM", ["pshop"]));
+    /**
+     * @return void
+     */
+    public function loadCommands(): void{
+        Server::getInstance()->getCommandMap()->register("joinacm", new JoinCommand($this));
+    }
+
+    /**
+     * @return void
+     */
+    public function loadRanks(): void{
+        $supportRankPlugins = [
+            new RankSystemSupport(),
+            new GroupsAPISupport(),
+            new GroupSystemSupport(),
+            new PurePermsSupport()
+        ];
+        foreach($supportRankPlugins as $supportRankPlugin) {
+            if($this->config->get('JoinRanks.Support.enabled') === true && $supportRankPlugin->isAvailable()){
+                $this->getLogger()->notice(get_class($supportRankPlugin) . ' support has been loaded.');
+                self::$supportRank = $supportRankPlugin;
+                return;
+            }
+        }
+        $this->getLogger()->critical('Rank support has been canceled because no supported plugin has been found');
     }
 
     /**
@@ -136,12 +156,28 @@ class Loader extends PluginBase{
         return self::$instance;
     }
 
+    public static function getRankSupport(): RankSupport{
+        return self::$supportRank;
+    }
+
     /**
      * @param Player $player
      * @param string $key
      * @return string
      */
     public static function getMessage(Player $player, string $key): string{
-        return PluginUtils::codeUtil($player, self::$instance->messages->getNested($key, $key));
+        $messageArray = self::$instance->config->getNested($key, []);
+        if(!is_array($messageArray)){
+            $messageArray = [$messageArray];
+        }
+        $message = implode("\n", $messageArray);
+        return PluginUtils::codeUtil($player, $message);
+    }
+
+    /**
+     * @return string
+     */
+    public static function Prefix(): string{
+        return self::$instance->config->get("Prefix");
     }
 }

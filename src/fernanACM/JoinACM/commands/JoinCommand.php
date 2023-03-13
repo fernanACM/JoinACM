@@ -1,47 +1,84 @@
 <?php
-
+    
+#      _       ____   __  __ 
+#     / \     / ___| |  \/  |
+#    / _ \   | |     | |\/| |
+#   / ___ \  | |___  | |  | |
+#  /_/   \_\  \____| |_|  |_|
+# The creator of this plugin was fernanACM.
+# https://github.com/fernanACM
+ 
 namespace fernanACM\JoinACM\commands;
 
-use pocketmine\Server;
 use pocketmine\player\Player;
-use pocketmine\plugin\Plugin;
 
-use pocketmine\command\Command;
+use CortexPE\Commando\BaseCommand;
+use fernanACM\JoinACM\commands\subcommands\SpawnSubCommand;
+use Vecnavium\FormsUI\SimpleForm;
+
 use pocketmine\command\CommandSender;
-use pocketmine\plugin\PluginOwned;
 
-use fernanACM\JoinACM\Join;
-use fernanACM\JoinACM\PluginUtils;
+use fernanACM\JoinACM\Loader;
+use fernanACM\JoinACM\forms\JoinForm;
+use fernanACM\JoinACM\utils\PluginUtils;
 
-class JoinCommand extends Command implements PluginOwned{
-    
-    private $plugin;
+class JoinCommand extends BaseCommand{
 
-    public function __construct(Join $plugin){
-        $this->plugin = $plugin;
-        
-        parent::__construct("joinacm", "§r§fOpen menu JoinACM to view your welcome by §bfernanACM", "§cUse: /joinacm", ["join"]);
+    /**
+     * @return void
+     */
+    protected function prepare(): void{
+        $this->setPermission("joinacm.command.setspawn");
+        $this->registerSubCommand(new SpawnSubCommand("setspawn", "§r§fDefining custom JoinACM spawn by §bfernanACM", ["setjoin"]));
+    }
+
+    public function __construct(){
+        parent::__construct(Loader::getInstance(), "joinacm", "§r§fOpen menu JoinACM to view your welcome by §bfernanACM", ["join"]);
         $this->setPermission("joinacm.command");
-        $this->setAliases(["join"]);
     }
 
-    public function execute(CommandSender $sender, string $commandLabel, array $args){
-        if(count($args) == 0){
-            if($sender instanceof Player) {
-                $this->plugin->getJoinUI($sender);
-                PluginUtils::PlaySound($sender, "random.screenshot", 1, 1);
-            } else {
-                  $sender->sendMessage("Use this command in-game");
-            }
+    /**
+     * @param CommandSender $sender
+     * @param string $aliasUsed
+     * @param array $args
+     * @return void
+     */
+    public function onRun(CommandSender $sender, string $aliasUsed, array $args): void{
+        if(!$sender instanceof Player){
+            $sender->sendMessage("Use this command in-game");
+            return;
         }
-        return true;
-    }
-    
-    public function getPlugin(): Plugin{
-        return $this->plugin;
-    }
 
-    public function getOwningPlugin(): Join{
-        return $this->plugin;
+        if(!$sender->hasPermission("joinacm.command")){
+            $sender->sendMessage(Loader::Prefix(). Loader::getMessage($sender, "Messages.no-permission"));
+            PluginUtils::PlaySound($sender, "mob.villager.no", 1, 1);
+            return;
+        }
+
+        $form = new SimpleForm(function(Player $player, $data){
+            if($data === null){
+                PluginUtils::PlaySound($player, "random.pop2", 1, 1.5);
+                return true;
+            }
+            switch($data){
+                case 0: // FormUI
+                    JoinForm::getJoinUI($player);
+                    PluginUtils::PlaySound($player, "random.pop", 1, 1.5);
+                break;
+
+                case 1: // BooKUI
+                    JoinForm::getJoinBookUI($player);
+                    PluginUtils::PlaySound($player, "random.pop", 1, 1.5);
+                break;
+
+                case 2:
+                break;
+            }
+        });
+        $form->setTitle("§l§9JoinACM");
+        $form->addButton("FormUI");
+        $form->addButton("BookUI");
+        $form->addButton("Close menu");
+        $sender->sendForm($form);
     }
 }
