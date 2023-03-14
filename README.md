@@ -17,6 +17,9 @@ A simple JoinUI customizable through the 'config.yml' file, you can edit the for
 ### BookUI
 <img src="https://user-images.githubusercontent.com/83558341/224911329-40c3467d-23a8-4ab1-b71c-3e54b5386ade.png">
 
+### Title and Animation
+<img src="https://user-images.githubusercontent.com/83558341/224911885-d9908ac2-96cf-4875-bacb-ab01c1bac8f6.png">
+
 ### 💡 Implementations
 * [X] Configuration.
 * [X] Personalization in config
