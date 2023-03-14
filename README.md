@@ -31,7 +31,7 @@ A simple JoinUI customizable through the 'config.yml' file, you can edit the for
 
 ### 💾 Config
 ```yaml
-     #      _         _            _      ___   __  __ 
+#      _         _            _      ___   __  __ 
 #  _  | |  ___  (_)  _ _     /_\    / __| |  \/  |
 #  | || | / _ \ | | | ' \   / _ \  | (__  | |\/| |
 #   \__/  \___/ |_| |_||_| /_/ \_\  \___| |_|  |_|
