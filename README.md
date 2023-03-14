@@ -9,12 +9,11 @@ A simple JoinUI customizable through the 'config.yml' file, you can edit the for
 ![Captura de pantalla 2023-03-14 010240](https://user-images.githubusercontent.com/83558341/224910873-d50048b2-a7cf-42a1-a6c3-c6805c341c55.png)
 <a href="https://discord.gg/YyE9XFckqb"><img src="https://img.shields.io/discord/837701868649709568?label=discord&color=7289DA&logo=discord" alt="Discord" /></a>
 
-## 📸 Images
-
-### FormUI
+### 📸 Images
+**FormUI**
 <img src="https://user-images.githubusercontent.com/83558341/224911130-c648279d-056a-4d8e-84d2-03fe92572c49.png">
 
-### BookUI
+**BookUI**
 <img src="https://user-images.githubusercontent.com/83558341/224911329-40c3467d-23a8-4ab1-b71c-3e54b5386ade.png">
 
 ### Title and Animation
