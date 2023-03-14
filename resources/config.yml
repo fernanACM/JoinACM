@@ -29,7 +29,7 @@ JoinVip:
   # Use: {PLAYER} => player name
   # Example:
   # Join:
-  #   YouRank:
+  #   PlayerName:
   #    message: "{PLAYER} just joined, please welcome them."
   #    // sounds: https://www.digminecraft.com/lists/sound_list_pe.php
   #    soundName: "random.totem"
@@ -45,7 +45,7 @@ JoinVip:
   # Use: {PLAYER} => player name
   # Example:
   # Quit:
-  #   YouRank:
+  #   PlayerName:
   #    message: "{PLAYER} the owner is gone."
   #    // sounds: https://www.digminecraft.com/lists/sound_list_pe.php
   #    soundName: "random.totem"
