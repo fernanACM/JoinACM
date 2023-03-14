@@ -201,7 +201,7 @@ JoinUI:
   #     ButtonName:
   #       name: "Test"
   #       // http or https
-  #       image: "https://github.com/fernanACM/JoinACM/blob/stable/icon.png?raw=true"
+  #       image: "https://i.imgur.com/cVJBKqf.png"
   #       // Use "CONSOLE" or "PLAYER"
   #       target: CONSOLE
   #       command: "give {PLAYER} apple 5"
@@ -209,7 +209,7 @@ JoinUI:
   buttons:
     JoinACM:
       name: "Click to continue"
-      image: "https://github.com/fernanACM/JoinACM/blob/stable/icon.png?raw=true"
+      image: "https://i.imgur.com/cVJBKqf.png"
     Apple:
       name: "Receive apple{LINE}click"
       # http or https

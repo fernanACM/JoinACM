@@ -2,10 +2,28 @@
 build-by-default: true
 branches:
 - main
+- stable
 projects:
   JoinACM:
     path: ""
     icon: icon.png
+    libs:
+      - src: Vecnavium/FormsUI/FormsUI
+        version: ^1.0.0
+      - src: muqsit/InvMenu/InvMenu
+        version: ^4.4.1
+        branch: "4.0"
+      - src: muqsit/simplepackethandler/SimplePacketHandler
+        version: ^0.1.2
+        branch: "master"
+      - src: DaPigGuy/libPiggyUpdateChecker/libPiggyUpdateChecker
+        version: ^1.0.0
+        branch: "master"
+      - src: CortexPE/Commando/Commando
+        version:  ^3.0.0
+        branch: PM4
+      - src: cooldogedev/libBook/libBook
+        version: ^0.0.2
     lint:
       phpstan: false
 ...
