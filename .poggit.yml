@@ -2,11 +2,10 @@
 build-by-default: true
 branches:
 - stable
-- main
 projects:
   JoinACM:
     path: ""
-    icon: icon.png
+    icon: icon-joinacm.png
     libs:
       - src: Vecnavium/FormsUI/FormsUI
         version: ^1.0.0
