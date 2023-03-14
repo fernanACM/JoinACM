@@ -20,11 +20,11 @@ use fernanACM\JoinACM\Loader;
 use fernanACM\JoinACM\utils\PluginUtils;
 use fernanACM\JoinACM\utils\SpawnUtils;
 
-class SpawnSubCommand extends BaseSubCommand{
+class RemoveSpawnSubCommand extends BaseSubCommand{
 
     public function __construct(){
-        parent::__construct("setspawn", "§r§fDefining custom JoinACM spawn by §bfernanACM", ["setjoin"]);
-        $this->setPermission("joinacm.command.setspawn");
+        parent::__construct("removespawn", "§r§fRemover custom JoinACM spawn by §bfernanACM", ["removejoin"]);
+        $this->setPermission("joinacm.command.removespawn");
     }
     /**
      * @return void
@@ -50,6 +50,6 @@ class SpawnSubCommand extends BaseSubCommand{
             return;
         }
 
-        SpawnUtils::setSpawn($sender);
+        SpawnUtils::removeSpawn($sender);
     }
 }

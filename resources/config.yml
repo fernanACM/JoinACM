@@ -14,46 +14,47 @@ config-version: "2.0.0"
 # ====(PREFIX)====
 Prefix: "&l&f[&6JoinACM&f]&r&8»&r "
 
-# ====(RANKS SUPPORT)====
-JoinRanks:
+# ====(VIP SUPPORT)====
+JoinVip:
   Support:
     # Use "true" or "false" To activate/deactivate this option
     enabled: false
-  # Add range names
-  ranks-list:
-    - Owner
-    - Admin
-  # Add messages to the aforementioned ranges, this applies 
+  # Add player names
+  vip-list:
+    - fernanACM9606
+    - Steve
+    - KEN3701
+  # Add messages to the aforementioned users, this applies
   # at the time of joining the game.
-  # Use: {RANK} => Player rank and {PLAYER} => player name
+  # Use: {PLAYER} => player name
   # Example:
   # Join:
   #   YouRank:
-  #    message: "{RANK} {PLAYER} just joined, please welcome them."
+  #    message: "{PLAYER} just joined, please welcome them."
   #    // sounds: https://www.digminecraft.com/lists/sound_list_pe.php
   #    soundName: "random.totem"
   Join:
-    Owner:
-      message: "&f[&c{RANK}&f]&a {PLAYER}&b:&e The server owner just joined."
+    fernanACM9606:
+      message: "&f[&c{PLAYER}&f]&b:&e The server owner just joined."
       soundName: "random.totem"
-    Admin:
-      message: "&f[&6{RANK}&f]&a {PLAYER}&b:&e You have joined ACM servers."
+    KEN3701:
+      message: "&f[&6{PLAYER}&f]&b:&e You have joined ACM servers."
       soundName: "mob.villager.yes"
-  # Add messages to the aforementioned ranges, this applies
+  # Add messages to the aforementioned users, this applies
   # at the time of leaving the game.
-  # Use: {RANK} => Player rank and {PLAYER} => player name
+  # Use: {PLAYER} => player name
   # Example:
   # Quit:
   #   YouRank:
-  #    message: "{RANK} {PLAYER} the owner is gone."
+  #    message: "{PLAYER} the owner is gone."
   #    // sounds: https://www.digminecraft.com/lists/sound_list_pe.php
   #    soundName: "random.totem"
   Quit:
-    Owner:
-      message: "&f[&c{RANK}&f]&a {PLAYER}&b:&e The server owner just joined."
+    fernanACM9606:
+      message: "&f[&c{PLAYER}&f]&b:&e The server owner just joined."
       soundName: "random.pop2"
-    Admin:
-      message: "&f[&6{RANK}&f]&a {PLAYER}&b:&e The admin left :)."
+    KEN3701:
+      message: "&f[&6{PLAYER}&f]&b:&e The admin left :)."
       soundName: "mob.villager.no"
     # Sound on/off settings
   Sound:
@@ -61,6 +62,12 @@ JoinRanks:
     playerJoin: true
     # Use "true" or "false" To activate/deactivate this option
     playerQuit: true
+    # sounds: https://www.digminecraft.com/lists/sound_list_pe.php
+    # In case you forgot to put "soundName" in a message
+    default-joinSoundName: "mob.villager.yes"
+    # sounds: https://www.digminecraft.com/lists/sound_list_pe.php
+    # In case you forgot to put "soundName" in a message
+    default-quitSoundName: "mob.villager.no"
 
 # ====(PLAYER JOIN)====
 PlayerJoin:
@@ -162,6 +169,7 @@ PlayerQuit:
 # false => Disable this option
 SpawnMode:
   joinSpawn: "DEFAULT"
+  undefined-message: "&cYou have not defined &l&bJoinACM&r&c SpawnCustom. &dUse: /joinacm setspawn"
 
 # ====(JOIN UI)====
 JoinUI:
@@ -229,21 +237,23 @@ BookUI:
     JoinACM:
       page: 0
       content:
+        - "       &l&9JoinACM   {LINE}{LINE}"
         - "§bWelcome to the server friend :D"
         - "§bI hope you like it very much"
-        - "{LINE}{LINE}&cVersion:&e 2.0.0"
-        - "&cReport bug:&a &ehttps://discord.gg/YyE9XFckqb"
+        - "{LINE}{LINE}&cVersion:&a 2.0.0"
+        - "&cReport bug:&a https://discord.gg/YyE9XFckqb"
         - "&cGithub:&b https://github.com/fernanACM/"
         - "&cAuthor: §afernanACM"
     Page2:
       page: 1
       content:
         - "Here you can add many more information"
-        - "&cReport bug:&a &ehttps://discord.gg/YyE9XFckqb"
+        - "&cReport bug:&a https://discord.gg/YyE9XFckqb"
         - "&cGithub:&b https://github.com/fernanACM/"
         - "&cAuthor: §afernanACM"
 
 # ====(MESSAGES)====
 Messages:
   no-permission: "&cYou don't have permissions for this"
-  spawn-selected-successfully: "&aWorld custom spawn defined:&b {X}, [Y], {Z}, world: {WORLD_NAME}"
+  spawn-selected-successfully: "&aWorld custom spawn defined:&b {X}, {Y}, {Z}, world:&a {WORLD_NAME}"
+  spawn-successfully-removed: "&aThe old spawn has been successfully removed!"

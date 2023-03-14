@@ -32,21 +32,22 @@ class Event implements Listener{
         $player = $event->getPlayer();
         $config = Loader::getInstance()->config;
         $spawn = Loader::getInstance()->spawn->get("Spawn");
-        # JoinRanks
-        if(Loader::$supportRank){
-            foreach($config->getNested("JoinRanks.ranks-list") as $ranks){
-                if(Loader::getRankSupport()->getRank($player->getName()) == $ranks){
+        $defaultSound = $config->getNested("JoinVip.Sound.default-joinSoundName");
+        # JoinVip
+        if($config->getNested("JoinVip.Support.enabled")){
+            foreach($config->getNested("JoinVip.vip-list") as $vips){
+                if($player->getName() == $vips){
                     $event->setJoinMessage("");
-                    $message = str_replace(["{RANK}", "{PLAYER}"], [$ranks, $player->getName()], Loader::getMessage($player, "JoinRanks.Join.".$ranks.".message"));
+                    $message = str_replace(["{PLAYER}"], [$vips], Loader::getMessage($player, "JoinVip.Join.".$vips.".message"));
                     Server::getInstance()->broadcastMessage($message);
-                    if($config->getNested("JoinRanks.Sound.playerJoin")){
-                        PluginUtils::BroadSound($player, $config->getNested("JoinRanks.Join.".$ranks.".soundName"), 500, 1);
+                    if($config->getNested("JoinVip.Sound.playerJoin")){
+                        PluginUtils::BroadSound($player, $config->getNested("JoinVip.Join.".$vips.".soundName") ?? $defaultSound, 500, 1);
                     }
                 }
             }
-            # Rank list
-            $ranks = $config->getNested("JoinRanks.ranks-list");
-            if(!in_array(Loader::getRankSupport()->getRank($player->getName()), $ranks)){
+            # VipList
+            $vips = $config->getNested("JoinVip.vip-list");
+            if(!in_array($player->getName(), $vips)){
                 if($config->getNested("PlayerJoin.BroadCast.playerJoin")){
                     $event->setJoinMessage("");
                     Server::getInstance()->broadcastMessage(Loader::getMessage($player, "PlayerJoin.BroadCast.playerJoinMessage"));
@@ -90,21 +91,22 @@ class Event implements Listener{
     public function onQuit(PlayerQuitEvent $event): void{
         $player = $event->getPlayer();
         $config = Loader::getInstance()->config;
-        # JoinRanks
-        if(Loader::$supportRank){
-            foreach($config->getNested("JoinRanks.ranks-list") as $ranks){
-                if(Loader::getRankSupport()->getRank($player->getName()) == $ranks){
+        $defaultSound = $config->getNested("JoinVip.Sound.default-quitSoundName");
+        # QuitVip
+        if($config->getNested("JoinVip.Support.enabled")){
+            foreach($config->getNested("JoinVip.vip-list") as $vips){
+                if($player->getName() == $vips){
                     $event->setQuitMessage("");
-                    $message = str_replace(["{RANK}", "{PLAYER}"], [$ranks, $player->getName()], Loader::getMessage($player, "JoinRanks.Quit.".$ranks.".message"));
+                    $message = str_replace(["{PLAYER}"], [$vips], Loader::getMessage($player, "JoinVip.Quit.".$vips.".message"));
                     Server::getInstance()->broadcastMessage($message);
-                    if($config->getNested("JoinRanks.Sound.playerQuit")){
-                        PluginUtils::BroadSound($player, $config->getNested("JoinRanks.Quit.".$ranks.".soundName"), 500, 1);
+                    if($config->getNested("JoinVip.Sound.playerQuit")){
+                        PluginUtils::BroadSound($player, $config->getNested("JoinVip.Quit.".$vips.".soundName") ?? $defaultSound, 500, 1);
                     }
                 }
             }
-            # Rank list
-            $ranks = $config->getNested("JoinRanks.ranks-list");
-            if(!in_array(Loader::getRankSupport()->getRank($player->getName()), $ranks)){
+            # VipList
+            $vips = $config->getNested("JoinVip.vip-list");
+            if(!in_array($player->getName(), $vips)){
                 if($config->getNested("PlayerQuit.BroadCast.playerQuit")){
                     $event->setQuitMessage("");
                     Server::getInstance()->broadcastMessage(Loader::getMessage($player, "PlayerQuit.BroadCast.playerQuitMessage"));

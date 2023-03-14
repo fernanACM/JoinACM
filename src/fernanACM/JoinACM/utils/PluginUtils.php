@@ -66,7 +66,7 @@ class PluginUtils {
      */
 	public static function codeUtil(Player $player, string $message): string{
        $replacements = [
-            "{LINE}" => "\n",
+            "{LINE}" => "\n§r",
             "{NAME}" => $player->getName(),
             "&" => "§",
             "{HEALTH}" => $player->getHealth(),

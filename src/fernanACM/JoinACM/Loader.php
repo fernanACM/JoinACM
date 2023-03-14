@@ -16,6 +16,7 @@ use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 
 use pocketmine\utils\Config;
+use pocketmine\utils\TextFormat;
 # Libs
 use Vecnavium\FormsUI\FormsUI;
 use muqsit\simplepackethandler\SimplePacketHandler;
@@ -23,16 +24,12 @@ use muqsit\simplepackethandler\SimplePacketHandler;
 use CortexPE\Commando\BaseCommand;
 use CortexPE\Commando\PacketHooker;
 
+use cooldogedev\libBook\LibBook;
+
 use DaPigGuy\libPiggyUpdateChecker\libPiggyUpdateChecker;
 
 use fernanACM\JoinACM\commands\JoinCommand;
 
-use fernanACM\JoinACM\ranks\support\GroupsAPISupport;
-use fernanACM\JoinACM\ranks\support\GroupSystemSupport;
-use fernanACM\JoinACM\ranks\support\PurePermsSupport;
-use fernanACM\JoinACM\ranks\support\RankSystemSupport;
-
-use fernanACM\JoinACM\ranks\RankSupport;
 use fernanACM\JoinACM\utils\PluginUtils;
 
 class Loader extends PluginBase{
@@ -45,9 +42,6 @@ class Loader extends PluginBase{
 
     /** @var Loader $instance */
     public static Loader $instance;
-
-    /** @var $supportRank */
-    public static $supportRank;
 
     # CheckConfig
     public const CONFIG_VERSION = "2.0.0";
@@ -67,8 +61,8 @@ class Loader extends PluginBase{
         $this->loadCheck();
         $this->loadVirions();
         $this->loadCommands();
-        $this->loadRanks();
         $this->loadEvents();
+        $this->loadSpawn();
     }
 
     /**
@@ -98,6 +92,7 @@ class Loader extends PluginBase{
     public function loadVirions(): void{
         foreach([
             "FormsUI" => FormsUI::class,
+            "LibBook" => LibBook::class,
             "SimplePacketHandler" => SimplePacketHandler::class,
             "Commando" => BaseCommand::class,
             "libPiggyUpdateChecker" => libPiggyUpdateChecker::class
@@ -132,32 +127,13 @@ class Loader extends PluginBase{
     /**
      * @return void
      */
-    public function loadRanks(): void{
-        if($this->config->get("JoinRanks.Support.enabled") === true){
-            foreach(Server::getInstance()->getPluginManager()->getPlugins() as $plugin){
-                if($plugin instanceof \IvanCraft623\RankSystem\RankSystem){
-                    $this->getLogger()->notice("RankSystem support has been loaded.");
-                    self::$supportRank = new RankSystemSupport($plugin);
-                    return;
-                }
-                if($plugin instanceof \alvin0319\GroupsAPI\GroupsAPI){
-                    $this->getLogger()->notice("GroupsAPi support has been loaded.");
-                    self::$supportRank = new GroupsAPISupport($plugin);
-                    return;
-                }
-                if($plugin instanceof \r3pt1s\GroupSystem\GroupSystem){
-                    $this->getLogger()->notice("GroupSystem support has been loaded.");
-                    self::$supportRank = new GroupSystemSupport($plugin);
-                    return;
-                }
-                if($plugin instanceof \_64FF00\PurePerms\PurePerms){
-                    $this->getLogger()->notice("PurePerms support has been loaded.");
-                    self::$supportRank = new PurePermsSupport($plugin);
-                    return;
-                }
+    public function loadSpawn(): void{
+        $config = $this->config;
+        if($config->getNested("SpawnMode.joinSpawn") === "CUSTOM"){
+            if(isset($spawn["World"], $spawn["X"], $spawn["Y"], $spawn["Z"], $spawn["Yaw"], $spawn["Pitch"])){
+                Server::getInstance()->getWorldManager()->loadWorld($spawn["World"]);
             }
         }
-        $this->getLogger()->critical("Rank support has been canceled because it has not been found");
     }
 
     /**
@@ -165,10 +141,6 @@ class Loader extends PluginBase{
      */
     public static function getInstance(): Loader{
         return self::$instance;
-    }
-
-    public static function getRankSupport(): RankSupport{
-        return self::$supportRank;
     }
 
     /**
@@ -189,6 +161,6 @@ class Loader extends PluginBase{
      * @return string
      */
     public static function Prefix(): string{
-        return self::$instance->config->get("Prefix");
+        return TextFormat::colorize(self::$instance->config->get("Prefix"));
     }
 }

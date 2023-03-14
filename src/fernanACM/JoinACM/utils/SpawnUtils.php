@@ -50,4 +50,16 @@ class SpawnUtils{
         $player->sendMessage(Loader::Prefix(). $datos);
         PluginUtils::PlaySound($player, "random.levelup", 1, 1);
     }
+
+    /**
+     * @param Player $player
+     * @return void
+     */
+    public static function removeSpawn(Player $player): void{
+        $config = Loader::getInstance()->spawn;
+        $config->remove("Spawn");
+        $config->save();
+        $player->sendMessage(Loader::Prefix(). Loader::getMessage($player, "Messages.spawn-successfully-removed"));
+        PluginUtils::PlaySound($player, "random.levelup", 1, 1);
+    }
 }

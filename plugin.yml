@@ -13,3 +13,6 @@ permissions:
   joinacm.command.setspawn:
     description: /joinacm setspawn
     default: op
+  joinacm.command.removespawn:
+    description: /joinacm removespawn
+    default: op

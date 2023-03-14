@@ -32,8 +32,9 @@ class JoinModeUtils{
         switch($config->getNested("SpawnMode.joinSpawn")){
             case "CUSTOM": // Spawn defined through the /joinacm setspawn command
                 $spawn = Loader::getInstance()->spawn->get("Spawn");
-                if(isset($spawn["World"], $spawn["X"], $spawn["Y"], $spawn["Z"], $spawn["Pitch"], $spawn["Yaw"])){
-                    $player->teleport(new Location($spawn["X"], $spawn["Y"], $spawn["Z"], $spawn["World"], $spawn["Pitch"], $spawn["Yaw"]));
+                $world = Server::getInstance()->getWorldManager();
+                if(isset($spawn["World"], $spawn["X"], $spawn["Y"], $spawn["Z"], $spawn["Yaw"], $spawn["Pitch"])){
+                    $player->teleport(new Location($spawn["X"], $spawn["Y"], $spawn["Z"], $world->getWorldByName($spawn["World"]), $spawn["Yaw"], $spawn["Pitch"]));
                 }else{
                     $player->teleport(Server::getInstance()->getWorldManager()->getDefaultWorld()->getSafeSpawn());
                 }

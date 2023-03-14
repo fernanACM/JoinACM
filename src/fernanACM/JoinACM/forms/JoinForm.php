@@ -97,7 +97,7 @@ class JoinForm{
         $pages = Loader::getInstance()->config->getNested("BookUI.pages");
         foreach($pages as $pageName => $pageData){
             $content = implode("\n", $pageData["content"]);
-            $content = str_replace(["{LINE}"], ["\n"], $pageData["content"]);
+            $content = str_replace("{LINE}", "\n§r", $content);
             $book->setPageText($pageData["page"], TextFormat::colorize($content));
         }
         LibBook::sendPreview($player, $book);

@@ -13,6 +13,7 @@ namespace fernanACM\JoinACM\commands;
 use pocketmine\player\Player;
 
 use CortexPE\Commando\BaseCommand;
+use fernanACM\JoinACM\commands\subcommands\RemoveSpawnSubCommand;
 use fernanACM\JoinACM\commands\subcommands\SpawnSubCommand;
 use Vecnavium\FormsUI\SimpleForm;
 
@@ -24,17 +25,16 @@ use fernanACM\JoinACM\utils\PluginUtils;
 
 class JoinCommand extends BaseCommand{
 
+    public function __construct(){
+        parent::__construct(Loader::getInstance(), "joinacm", "§r§fOpen menu JoinACM to view your welcome by §bfernanACM", ["join"]);
+        $this->setPermission("joinacm.command");
+    }
     /**
      * @return void
      */
     protected function prepare(): void{
-        $this->setPermission("joinacm.command.setspawn");
         $this->registerSubCommand(new SpawnSubCommand("setspawn", "§r§fDefining custom JoinACM spawn by §bfernanACM", ["setjoin"]));
-    }
-
-    public function __construct(){
-        parent::__construct(Loader::getInstance(), "joinacm", "§r§fOpen menu JoinACM to view your welcome by §bfernanACM", ["join"]);
-        $this->setPermission("joinacm.command");
+        $this->registerSubCommand(new RemoveSpawnSubCommand("removespawn", "§r§fRemover custom JoinACM spawn by §bfernanACM", ["removejoin"]));
     }
 
     /**
