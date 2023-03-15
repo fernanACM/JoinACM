@@ -4,8 +4,6 @@ branches:
 - stable
 projects:
   JoinACM:
-    path: ""
-    icon: "icon-joinacm.png"
     libs:
       - src: Vecnavium/FormsUI/FormsUI
         version: ^1.0.0
