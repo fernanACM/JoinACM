@@ -1,12 +1,11 @@
 --- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/fernanACM/JoinACM
 build-by-default: true
 branches:
-- main
 - stable
 projects:
   JoinACM:
     path: ""
-    icon: icon.png
+    icon: "icon-joinacm.png"
     libs:
       - src: Vecnavium/FormsUI/FormsUI
         version: ^1.1.2

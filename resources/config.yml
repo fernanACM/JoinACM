@@ -11,6 +11,39 @@
 # DO NOT TOUCH!
 config-version: "2.0.0" 
 
+# ======(KEYS)======
+# PLUGIN:
+# {HEALTH} => player life
+# {MAX_HEALTH} => player max life
+# {FOOD} => player's hunger
+# {MAX_FOOD} => player's max hunger
+# {PING} => player connection
+# {WORLD_NAME} => world name
+
+# EXTRAS:
+# "{LINE}" => "\n",
+# - COLORS
+#  & => §,
+# "{BLACK}" => TextFormat::BLACK,
+# "{DARK_BLUE}" => TextFormat::DARK_BLUE,
+# "{DARK_GREEN}" => TextFormat::DARK_GREEN,
+# "{CYAN}" => TextFormat::DARK_AQUA,
+# "{DARK_RED}" => TextFormat::DARK_RED,
+# "{PURPLE}" => TextFormat::DARK_PURPLE,
+# "{GOLD}" => TextFormat::GOLD,
+# "{GRAY}" => TextFormat::GRAY,
+# "{DARK_GRAY}" => TextFormat::DARK_GRAY,
+# "{BLUE}" => TextFormat::BLUE,
+# "{GREEN}" => TextFormat::GREEN,
+# "{AQUA}" => TextFormat::AQUA,
+# "{RED}" => TextFormat::RED,
+# "{PINK}" => TextFormat::LIGHT_PURPLE,
+# "{YELLOW}" => TextFormat::YELLOW,
+# "{WHITE}" => TextFormat::WHITE,
+# "{ORANGE}" => "§6"
+# "{BOLD}" => TextFormat::BOLD,
+# "{RESET}" => TextFormat::RESET
+
 # ====(PREFIX)====
 Prefix: "&l&f[&6JoinACM&f]&r&8»&r "
 
