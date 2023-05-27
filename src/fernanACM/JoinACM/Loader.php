@@ -75,8 +75,6 @@ class Loader extends PluginBase{
     }
 
     public function loadCheck(){
-        # Update
-        libPiggyUpdateChecker::init($this);
         # CONFIG
         if((!$this->config->exists("config-version")) || ($this->config->get("config-version") != self::CONFIG_VERSION)){
             rename($this->getDataFolder() . "config.yml", $this->getDataFolder() . "config_old.yml");
@@ -108,6 +106,8 @@ class Loader extends PluginBase{
         if(!PacketHooker::isRegistered()){
             PacketHooker::register($this);
         }
+        # Update
+        libPiggyUpdateChecker::init($this);
     }
 
     /**
