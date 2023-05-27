@@ -102,9 +102,12 @@ class Loader extends PluginBase{
                 return;
             }
         }
-
         if(!PacketHooker::isRegistered()){
             PacketHooker::register($this);
+        }
+        
+        if(!LibBook::isRegistered()){
+            LibBook::register($this);
         }
         # Update
         libPiggyUpdateChecker::init($this);

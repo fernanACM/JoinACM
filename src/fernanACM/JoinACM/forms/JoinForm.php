@@ -90,7 +90,7 @@ class JoinForm{
      * @param Player $player
      * @return void
      */
-    public static function getJoinBookUI(Player $player): void {
+    public static function getJoinBookUI(Player $player): void{
         $book = VanillaItems::WRITTEN_BOOK();
         $book->setTitle(TextFormat::colorize(Loader::getInstance()->config->getNested("BookUI.title")));
         $book->setAuthor(TextFormat::colorize(Loader::getInstance()->config->getNested("BookUI.author")));
