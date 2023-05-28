@@ -21,8 +21,8 @@ projects:
       - src: CortexPE/Commando/Commando
         version:  ^3.0.0
         branch: PM4
-      - src: cooldogedev/libBook/libBook
-        version: ^0.0.2
+      - src: cooldogepm/libBook/libBook
+        version: 0.0.2
     lint:
       phpstan: false
 ...
