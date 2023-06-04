@@ -51,13 +51,13 @@ class Loader extends PluginBase{
      */
     public function onLoad(): void{
         self::$instance = $this;
+        $this->loadFiles();
     }
 
     /**
      * @return void
      */
     public function onEnable(): void{
-        $this->loadFiles();
         $this->loadCheck();
         $this->loadVirions();
         $this->loadCommands();

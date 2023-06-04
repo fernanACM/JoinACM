@@ -1,7 +1,7 @@
 name: JoinACM
 main: fernanACM\JoinACM\Loader
-version: 2.0.1
-api: 4.0.0
+version: 3.0.0
+api: 5.0.0
 author: fernanACM
 description: Simple custom JoinUI for PocketMine-MP 4.0 by fernanACM
 website: https://github.com/fernanACM

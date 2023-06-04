@@ -158,11 +158,11 @@ PlayerJoin:
   # (MESSAGE)
   Messages:
     sendToast:
-      title: "&l&aJoin&fACM&r&e v2.0.0"
+      title: "&l&aJoin&fACM&r&e v3.0.0"
       subTitle: "&bHe is testing a new version of JoinACM with new stuff!"
     sendMessage:
       - "&ePut something here, this is a welcome message >:C"
-      - "&b- JoinACM v2.0.0"
+      - "&b- JoinACM v3.0.0"
     sendTip:
       - "&bWelcome!"
       - "&6{NAME}"
@@ -223,7 +223,7 @@ JoinUI:
   content:
     - "§eWelcome to the server friend :D"
     - "§eI hope you like it very much"
-    - "{LINE}{LINE}&cVersion:&e 2.0.0"
+    - "{LINE}{LINE}&cVersion:&e 3.0.0"
     - "&cReport bug:&e &ehttps://discord.gg/YyE9XFckqb"
     - "&cGithub:&b https://github.com/fernanACM/"
     - "&cAuthor: §ffernanACM"
@@ -273,7 +273,7 @@ BookUI:
         - "       &l&9JoinACM   {LINE}{LINE}"
         - "§bWelcome to the server friend :D"
         - "§bI hope you like it very much"
-        - "{LINE}{LINE}&cVersion:&a 2.0.0"
+        - "{LINE}{LINE}&cVersion:&a 3.0.0"
         - "&cReport bug:&a https://discord.gg/YyE9XFckqb"
         - "&cGithub:&b https://github.com/fernanACM/"
         - "&cAuthor: §afernanACM"
