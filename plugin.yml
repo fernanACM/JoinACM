@@ -3,7 +3,7 @@ main: fernanACM\JoinACM\Loader
 version: 3.0.2
 api: 5.36.0
 author: fernanACM
-description: Simple custom JoinUI for PocketMine-MP 4.0 by fernanACM
+description: Simple custom JoinUI for PocketMine-MP 5.0 by fernanACM
 website: https://github.com/fernanACM
 
 permissions:
